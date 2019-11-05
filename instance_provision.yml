@@ -137,7 +137,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-WebSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -178,7 +178,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-WebSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
          DeviceName: "/dev/sda1"
@@ -219,7 +219,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -265,7 +265,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -306,7 +306,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -342,7 +342,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -383,7 +383,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -424,7 +424,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -465,7 +465,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -506,7 +506,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -547,7 +547,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -588,7 +588,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -629,7 +629,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -665,7 +665,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -701,7 +701,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
@@ -737,7 +737,7 @@ Resources:
       SecurityGroupIds:
         - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
-      ImageId: ami-50aff02b
+      ImageId: ami-id
       BlockDeviceMappings:
         -
           DeviceName: "/dev/sda1"
