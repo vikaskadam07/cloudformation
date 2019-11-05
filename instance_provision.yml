@@ -32,19 +32,19 @@ Parameters:
   VPCID:
     Description: Existing VpcID
     Type: String
-    Default: vpc-e5e7b782
+    Default: vpc
   WebSubnet1:
     Description: Existing Web1 Subnet ID
     Type: String
-    Default: subnet-dedb88f3
+    Default: subnet
   YellowSubnet1:
     Description: Existing Yellow1 Subnet ID
     Type: String
-    Default: subnet-1114c43c
+    Default: subnet
   GreenSubnet1:
     Description: Existing Green1 Subnet ID
     Type: String
-    Default: subnet-4f59b462
+    Default: subnet
   WebTierInstanceType:
     Description: Instance Type for Web Tier Members
     Type: String
@@ -135,7 +135,7 @@ Resources:
       SubnetId: !Ref WebSubnet1
       InstanceType: !Ref WebTierInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-WebSecurityGroup
+        - !ImportValue Blikist-WebSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -176,7 +176,7 @@ Resources:
       SubnetId: !Ref WebSubnet1
       InstanceType: !Ref WebTierInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-WebSecurityGroup
+        - !ImportValue Blikist-WebSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -217,7 +217,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopEdgeInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -263,7 +263,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -304,7 +304,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref ESSearchInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -340,7 +340,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -381,7 +381,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -422,7 +422,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -463,7 +463,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -504,7 +504,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -545,7 +545,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -586,7 +586,7 @@ Resources:
       SubnetId: !Ref YellowSubnet1
       InstanceType: !Ref HadoopInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-YellowSecurityGroup
+        - !ImportValue Blikist-YellowSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -627,7 +627,7 @@ Resources:
       SubnetId: !Ref GreenSubnet1
       InstanceType: !Ref ESDataInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-GreenSecurityGroup
+        - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -663,7 +663,7 @@ Resources:
       SubnetId: !Ref GreenSubnet1
       InstanceType: !Ref ESDataInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-GreenSecurityGroup
+        - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -699,7 +699,7 @@ Resources:
       SubnetId: !Ref GreenSubnet1
       InstanceType: !Ref ESDataInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-GreenSecurityGroup
+        - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
@@ -735,7 +735,7 @@ Resources:
       SubnetId: !Ref GreenSubnet1
       InstanceType: !Ref ESDataInstanceType
       SecurityGroupIds:
-        - !ImportValue MDM-GreenSecurityGroup
+        - !ImportValue Blikist-GreenSecurityGroup
       KeyName: !Ref KeyPairName
       ImageId: ami-50aff02b
       BlockDeviceMappings:
