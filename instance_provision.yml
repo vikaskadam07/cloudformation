@@ -1,0 +1,767 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata :
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+     - Label:
+         default: Instance Configuration
+       Parameters:
+       - VPCID
+       - KeyPairName
+       - WebSubnet1
+       - YellowSubnet1
+       - GreenSubnet1
+       - WebTierInstanceType
+       - HadoopEdgeInstanceType
+       - HadoopInstanceType
+       - ESSearchInstanceType
+       - ESDataInstanceType
+     - Label:
+        default: 'Tag Information'
+       Parameters:
+       - EnvironmentTag
+       - ApplicationOwner
+       - Application
+       - Description
+       - ClarityID
+       - ResourceName
+       - ProductTower
+       - SecurityPosture
+       - SupportContact
+       - Domain
+Parameters:
+  VPCID:
+    Description: Existing VpcID
+    Type: String
+    Default: vpc-e5e7b782
+  WebSubnet1:
+    Description: Existing Web1 Subnet ID
+    Type: String
+    Default: subnet-dedb88f3
+  YellowSubnet1:
+    Description: Existing Yellow1 Subnet ID
+    Type: String
+    Default: subnet-1114c43c
+  GreenSubnet1:
+    Description: Existing Green1 Subnet ID
+    Type: String
+    Default: subnet-4f59b462
+  WebTierInstanceType:
+    Description: Instance Type for Web Tier Members
+    Type: String
+    Default: t2.xlarge
+    AllowedValues:
+      - t2.small
+      - t2.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+  HadoopEdgeInstanceType:
+    Description: Instance Type for Web UI/Services/Harnesses Servers
+    Type: String
+    Default: r4.2xlarge
+    AllowedValues:
+      - t2.small
+      - t2.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+  HadoopInstanceType:
+    Description: Instance Type for Hadoop Worker Nodes/Hadoop Master Node
+    Type: String
+    Default: r4.4xlarge
+    AllowedValues:
+      - t2.small
+      - t2.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+  ESSearchInstanceType:
+    Description: Instance Type for ElasticSearch Master Node
+    Type: String
+    Default: t2.xlarge
+    AllowedValues:
+      - t2.small
+      - t2.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+  ESDataInstanceType:
+    Description: Instance Type for ElasticSearch Data Nodes
+    Type: String
+    Default: r4.2xlarge
+    AllowedValues:
+      - t2.small
+      - t2.xlarge
+      - r4.2xlarge
+      - r4.4xlarge
+  EnvironmentTag:
+    Description: Environment
+    Type: String
+    AllowedValues:
+      - Sandbox
+      - DEV
+      - QA
+      - UAT
+      - PROD
+  ApplicationOwner:
+    Description: 'Name : Email address : Contact phone number'
+    Type: String
+  Application:
+    Description: 'Common name : Environment : Version'
+    Type: String
+  ClarityID:
+    Description: Billing ID
+    Type: String
+  ProductTower:
+    Description: 'Product tower : Product division'
+    Type: String
+  SecurityPosture:
+    Description: 'Compliance requirement (AML, PCI, SOC, or SOX)'
+    Type: String
+  SupportContact:
+    Description: 'Email address : Phone number'
+    Type: String
+  Domain:
+    Description: Domain Name
+    Type: String
+  Description:
+    Description: Domain Name
+    Type: String
+  KeyPairName:
+    Description: Name of an EC2 KeyPair to enable SSH access to the instance.
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    Default: wu-core-mdm
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+Resources:
+  WebUINode1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref WebSubnet1
+      InstanceType: !Ref WebTierInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-WebSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+          
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-webui-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-webui-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  WebSvcNode1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref WebSubnet1
+      InstanceType: !Ref WebTierInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-WebSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+         DeviceName: "/dev/sda1"
+         Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-websvc-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-websvc-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopEdge1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopEdgeInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sde"
+          Ebs:
+            VolumeSize: 10000
+            VolumeType: st1
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 10000
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-edge-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-edge-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopMaster1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 5000
+            VolumeType: gp2
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-master-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-master-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  ElasticSearchMaster1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref ESSearchInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-es-master-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-es-master-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-2"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-2"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker3:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-3"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-3"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker4:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-4"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-4"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker5:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-5"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-5"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker6:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-6"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-6"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  HadoopWorker7:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref YellowSubnet1
+      InstanceType: !Ref HadoopInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-YellowSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 100
+            VolumeType: gp2
+        -
+          DeviceName: "/dev/sdf"
+          Ebs:
+            VolumeSize: 500
+            VolumeType: st1
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-hadoop-worker-7"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-hadoop-worker-7"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  ElasticSearchDataNode1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref GreenSubnet1
+      InstanceType: !Ref ESDataInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-GreenSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 400
+            VolumeType: gp2
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-es-data-1"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-es-data-1"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  ElasticSearchDataNode2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref GreenSubnet1
+      InstanceType: !Ref ESDataInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-GreenSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 400
+            VolumeType: gp2
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-es-data-2"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-es-data-2"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  ElasticSearchDataNode3:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref GreenSubnet1
+      InstanceType: !Ref ESDataInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-GreenSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 400
+            VolumeType: gp2
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-es-data-3"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-es-data-3"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
+  ElasticSearchDataNode4:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !Ref GreenSubnet1
+      InstanceType: !Ref ESDataInstanceType
+      SecurityGroupIds:
+        - !ImportValue MDM-GreenSecurityGroup
+      KeyName: !Ref KeyPairName
+      ImageId: ami-50aff02b
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 400
+            VolumeType: gp2
+      Tags:
+          - Key: Name
+            Value: "wu-core-mdm-es-data-4"
+          - Key: "Application"
+            Value: !Ref Application
+          - Key: "ResourceName"
+            Value: "wu-core-mdm-es-data-4"
+          - Key: "ProductTower"
+            Value: !Ref ProductTower
+          - Key: "ApplicationOwner"
+            Value: !Ref ApplicationOwner
+          - Key: "ClarityID"
+            Value: !Ref ClarityID
+          - Key: "SupportContact"
+            Value: !Ref SupportContact
+          - Key: "SecurityPosture"
+            Value: !Ref SecurityPosture
+          - Key: "Description"
+            Value: !Ref Description
+          - Key: "Domain"
+            Value: !Ref Domain
