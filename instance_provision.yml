@@ -126,7 +126,7 @@ Parameters:
   KeyPairName:
     Description: Name of an EC2 KeyPair to enable SSH access to the instance.
     Type: 'AWS::EC2::KeyPair::KeyName'
-    Default: wu-core-mdm
+    Default: blinkist-core-blinkist
     ConstraintDescription: must be the name of an existing EC2 KeyPair.
 Resources:
   WebUINode1:
@@ -151,11 +151,11 @@ Resources:
           
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-webui-1"
+            Value: "blinkist-core-blinkist-webui-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-webui-1"
+            Value: "blinkist-core-blinkist-webui-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -192,11 +192,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-websvc-1"
+            Value: "blinkist-core-blinkist-websvc-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-websvc-1"
+            Value: "blinkist-core-blinkist-websvc-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -238,11 +238,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-edge-1"
+            Value: "blinkist-core-blinkist-hadoop-edge-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-edge-1"
+            Value: "blinkist-core-blinkist-hadoop-edge-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -279,11 +279,11 @@ Resources:
             VolumeType: gp2
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-master-1"
+            Value: "blinkist-core-blinkist-hadoop-master-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-master-1"
+            Value: "blinkist-core-blinkist-hadoop-master-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -315,11 +315,11 @@ Resources:
             VolumeType: gp2
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-es-master-1"
+            Value: "blinkist-core-blinkist-es-master-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-es-master-1"
+            Value: "blinkist-core-blinkist-hadoop-es-master-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -356,11 +356,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-1"
+            Value: "blinkist-core-blinkist-hadoop-worker-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-1"
+            Value: "blinkist-core-blinkist-hadoop-worker-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -397,11 +397,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-2"
+            Value: "blinkist-core-blinkist-hadoop-worker-2"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-2"
+            Value: "blinkist-core-blinkist-hadoop-worker-2"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -438,11 +438,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-3"
+            Value: "blinkist-core-blinkist-hadoop-worker-3"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-3"
+            Value: "blinkist-core-blinkist-hadoop-worker-3"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -479,11 +479,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-4"
+            Value: "blinkist-core-blinkist-hadoop-worker-4"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-4"
+            Value: "blinkist-core-blinkist-hadoop-worker-4"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -520,11 +520,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-5"
+            Value: "blinkist-core-blinkist-hadoop-worker-5"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-5"
+            Value: "blinkist-core-blinkist-hadoop-worker-5"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -561,11 +561,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-6"
+            Value: "blinkist-core-blinkist-hadoop-worker-6"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-6"
+            Value: "blinkist-core-blinkist-hadoop-worker-6"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -602,11 +602,11 @@ Resources:
             VolumeType: st1
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-hadoop-worker-7"
+            Value: "blinkist-core-blinkist-hadoop-worker-7"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-hadoop-worker-7"
+            Value: "blinkist-core-blinkist-hadoop-worker-7"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -638,11 +638,11 @@ Resources:
             VolumeType: gp2
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-es-data-1"
+            Value: "blinkist-core-blinkist-es-data-1"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-es-data-1"
+            Value: "blinkist-core-blinkist-es-data-1"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -674,11 +674,11 @@ Resources:
             VolumeType: gp2
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-es-data-2"
+            Value: "blinkist-core-blinkist-es-data-2"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-es-data-2"
+            Value: "blinkist-core-blinkist-es-data-2"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -710,11 +710,11 @@ Resources:
             VolumeType: gp2
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-es-data-3"
+            Value: "blinkist-core-blinkist-es-data-3"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-es-data-3"
+            Value: "blinkist-core-blinkist-es-data-3"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
@@ -746,11 +746,11 @@ Resources:
             VolumeType: gp2
       Tags:
           - Key: Name
-            Value: "wu-core-mdm-es-data-4"
+            Value: "blinkist-core-blinkist-es-data-4"
           - Key: "Application"
             Value: !Ref Application
           - Key: "ResourceName"
-            Value: "wu-core-mdm-es-data-4"
+            Value: "blinkist-core-blinkist-es-data-4"
           - Key: "ProductTower"
             Value: !Ref ProductTower
           - Key: "ApplicationOwner"
