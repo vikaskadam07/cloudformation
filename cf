@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata :
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+     - Label:
+         default: Instance Configuration
+       Parameters:
+       - VPCID
+       - KeyPairName
+       - Subnet2
+       - Subnet1     
+       - InstanceType
+
+Parameters:
+  VPCID:
+    Description: Existing VpcID
+    Type: String
+    Default: 'vpc-fac0fc83'
+  Subnet2:
+    Description: Existing Web1 Subnet ID
+    Type: String
+    Default: 'subnet-69a21d22'
+  Subnet1:
+    Description: Existing Web1 Subnet ID
+    Type: String
+    Default: 'subnet-d1d24fa8'
+  MyEC2Instance1Type:
+    Description: Instance Type for Web Tier Members
+    Type: String
+    Default: 't2.micro'
+    AllowedValues:
+      - t2.small
+      - t2.micro
+  MyEC2Instance2Type:
+    Description: Instance Type for Web Tier Members
+    Type: String
+    Default: 't2.micro'
+    AllowedValues:
+      - t2.small
+      - t2.micro
+
+
+Description: A simple EC2 instance
+Resources:
+  MyEC2Instance1
+    Type: AWS::EC2::Subnet
+    Properties:
+      SubnetId: 'subnet-69a21d22'
+      InstanceType: 't2.micro'
+      SecurityGroupIds: 'sg-ea38f99b'
+      KeyName: 'cf'
+      ImageId: 'ami-0a85857bfc5345c38'
+
+  MyEC2Instance2
+    Type: AWS::EC2::Subnet
+    Properties:
+      SubnetId: 'subnet-d1d24fa8'
+      InstanceType: 't2.micro'
+      SecurityGroupIds: 'sg-ea38f99b'
+      KeyName: 'cf'
+      ImageId: 'ami-0a85857bfc5345c38'
